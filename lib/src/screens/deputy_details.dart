@@ -7,7 +7,6 @@ import 'package:chamber_deputies/src/stores/deputy_details.dart';
 import 'package:chamber_deputies/src/repositories/expense.dart';
 import 'package:chamber_deputies/src/stores/expense.dart';
 import 'package:chamber_deputies/src/models/expense.dart';
-import 'package:flutter/widgets.dart';
 
 class DeputyDetails extends StatefulWidget {
   final DeputiesModels deputy;
@@ -49,11 +48,6 @@ class _DeputyDetailsState extends State<DeputyDetails> {
     2021,
     2020,
     2019,
-    2018,
-    2017,
-    2016,
-    2015,
-    2014,
   ];
   int _getMonth = 0;
   int _getYear = 2024;
@@ -91,8 +85,9 @@ class _DeputyDetailsState extends State<DeputyDetails> {
     storeExpense.getExpenses();
   }
 
-  List<ExpenseModel> getExpensesByMonthYear(int? month, int? year) {
+  List<ExpenseModel> getExpensesByMonthYear(int month, int year) {
     storeExpense.getExpensesByMonthYear(month, year);
+    print('$month' + '$year');
     return storeExpense.value.value;
   }
 
@@ -488,7 +483,6 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                                       Row(
                                         children: [
                                           Text(
-                                            // Primeira letra maiúscula
                                             '${cabinet.key[0].toUpperCase() + cabinet.key.substring(1)}: ',
                                             style: const TextStyle(
                                               color: Colors.white,
@@ -498,7 +492,7 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                                           ),
                                           const SizedBox(width: 5),
                                           Text(
-                                            cabinet.value,
+                                            cabinet.value ?? '-',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -556,7 +550,9 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                                       ),
                                       const SizedBox(width: 5),
                                       Text(
-                                        'R\$ ${expenses.fold<double>(0, (total, expense) => total + expense.documentValue).toStringAsFixed(2)}',
+                                        expenses.isEmpty
+                                            ? 'R\$ 0.00'
+                                            : 'R\$ ${expenses.fold<double>(0, (total, expense) => total + expense.documentValue).toStringAsFixed(2)}',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -627,131 +623,147 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                           ),
                           SizedBox(
                             height: 300,
-                            child: ListView.builder(
-                              itemCount: expenses.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                final expense = expenses[index];
-                                return Container(
-                                  width: 350,
-                                  margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                expense.documentType,
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Nº ${expense.documentNumber.replaceAll(
-                                                  RegExp(r'\D'),
-                                                  '',
-                                                )}',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const Spacer(),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                '${expense.month}/${expense.year}',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  const Text(
-                                                    'Valor:',
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                            child: expenses.isEmpty
+                                ? const Center(
+                                    child: Text(
+                                      'Nenhuma despesa encontrada para o mês e ano selecionados!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: expenses.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      final expense = expenses[index];
+                                      return Container(
+                                        width: 350,
+                                        margin: const EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      expense.documentType,
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  Text(
-                                                    'R\$ ${expense.documentValue.toStringAsFixed(2)}',
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
+                                                    Text(
+                                                      'Nº ${expense.documentNumber.replaceAll(
+                                                        RegExp(r'\D'),
+                                                        '',
+                                                      )}',
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
+                                                const Spacer(),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '${expense.month}/${expense.year}',
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        const Text(
+                                                          'Valor:',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 5),
+                                                        Text(
+                                                          'R\$ ${expense.documentValue.toStringAsFixed(2)}',
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            const Divider(
+                                              color:
+                                                  Color.fromRGBO(22, 49, 21, 1),
+                                              thickness: 1,
+                                            ),
+                                            const Text(
+                                              'Tipo:',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const Divider(
-                                        color: Color.fromRGBO(86, 185, 82, 1),
-                                        thickness: 1,
-                                      ),
-                                      const Text(
-                                        'Tipo:',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
+                                            ),
+                                            Text(
+                                              expense.type,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            const Text(
+                                              'Fornecedor:',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              expense.providerName,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            const Text(
+                                              'CNPJ/CPF do Fornecedor:',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              expense.providerCnpj,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Text(
-                                        expense.type,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      const Text(
-                                        'Fornecedor:',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        expense.providerName,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      const Text(
-                                        'CNPJ/CPF do Fornecedor:',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        expense.providerCnpj,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
                           ),
                         ],
                       ),

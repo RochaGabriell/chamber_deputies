@@ -28,7 +28,7 @@ class ExpenseStore {
     }
   }
 
-  Future getExpensesByMonthYear(int? month, int? year) async {
+  Future getExpensesByMonthYear(int month, int year) async {
     isLoading.value = true;
 
     try {

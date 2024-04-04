@@ -15,7 +15,7 @@ class ExpenseRepository {
   Future<List<ExpenseModel>> getExpensesById() async {
     final response = await client.get(
       url:
-          'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas',
+          'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas?ano=2024',
     );
 
     if (response.statusCode == 200) {
@@ -34,26 +34,15 @@ class ExpenseRepository {
     }
   }
 
-  Future<List<ExpenseModel>> getExpensesByMonthYear(
-      int? month, int? year) async {
+  Future<List<ExpenseModel>> getExpensesByMonthYear(int month, int year) async {
     final dynamic response;
 
-    if (month != null && year == null) {
-      response = await client.get(
-        url:
-            'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas?mes=$month',
-      );
-    } else if (month == null && year != null) {
-      response = await client.get(
-        url:
-            'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas?ano=$year',
-      );
-    } else {
-      response = await client.get(
-        url:
-            'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas?mes=$month&ano=$year',
-      );
-    }
+    String url =
+        'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas';
+
+    url += '${month != 0 ? '?mes=$month&' : '?'}ano=$year&itens=100';
+
+    response = await client.get(url: url);
 
     if (response.statusCode == 200) {
       final List<ExpenseModel> expenses = [];
