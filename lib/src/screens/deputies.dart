@@ -44,10 +44,11 @@ class _DeputiesState extends State<Deputies> {
       return deputies;
     }
 
-    return deputies
-        .where((deputy) =>
-            deputy.name.toLowerCase().contains(search.toLowerCase()))
-        .toList();
+    return deputies.where((deputy) {
+      return deputy.name.toLowerCase().contains(search.toLowerCase()) ||
+          deputy.uf.toLowerCase().contains(search.toLowerCase()) ||
+          deputy.party.toLowerCase().contains(search.toLowerCase());
+    }).toList();
   }
 
   @override
@@ -101,7 +102,7 @@ class _DeputiesState extends State<Deputies> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     decoration: const InputDecoration(
-                      hintText: 'Pesquisar',
+                      hintText: 'Pesquisar (Nome, UF, Partido)',
                       prefixIcon: Icon(Icons.search),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),

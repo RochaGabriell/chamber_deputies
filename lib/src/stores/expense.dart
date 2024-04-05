@@ -19,7 +19,7 @@ class ExpenseStore {
     isLoading.value = true;
 
     try {
-      final result = await repository.getExpensesById();
+      final result = await repository.getExpenses();
       value.value = result;
     } on Exception catch (e) {
       error.value = e.toString();

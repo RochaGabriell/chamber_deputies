@@ -12,10 +12,10 @@ class ExpenseRepository {
     required this.idDeputy,
   });
 
-  Future<List<ExpenseModel>> getExpensesById() async {
+  Future<List<ExpenseModel>> getExpenses() async {
     final response = await client.get(
       url:
-          'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas?ano=2024',
+          'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/despesas?ano=2024&itens=100',
     );
 
     if (response.statusCode == 200) {

@@ -19,10 +19,10 @@ class OccupationModel {
     return OccupationModel(
       title: map['titulo'] ?? '',
       entity: map['entidade'] ?? '',
-      entityUf: map['entidadeUF'] ?? '',
-      entityCountry: map['entidadePais'] ?? '',
-      endYear: map['anoFim'].toString(),
-      startYear: map['anoInicio'].toString(),
+      entityUf: map['entidadeUF'] ?? '-',
+      entityCountry: map['entidadePais'] ?? '-',
+      endYear: map['anoFim'].toString() == 'null' ? '-' : map['anoFim'].toString(),
+      startYear: map['anoInicio'].toString() == 'null' ? '-' : map['anoInicio'].toString(),
     );
   }
 }

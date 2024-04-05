@@ -19,7 +19,7 @@ class DeputyDetailsStore {
     isLoading.value = true;
 
     try {
-      final result = await repository.getDeputyDetailsById();
+      final result = await repository.getDeputyDetails();
       value.value = result;
     } on Exception catch (e) {
       error.value = e.toString();

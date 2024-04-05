@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:chamber_deputies/src/models/deputies.dart';
 import 'package:chamber_deputies/src/screens/about.dart';
-import 'package:chamber_deputies/src/screens/deputy_details.dart';
+import 'package:chamber_deputies/src/screens/deputy_details/deputy_details.dart';
 import 'package:chamber_deputies/src/screens/home.dart';
 import 'package:chamber_deputies/src/screens/deputies.dart';
 import 'package:chamber_deputies/src/screens/commission.dart';

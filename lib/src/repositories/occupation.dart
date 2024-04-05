@@ -1,25 +1,32 @@
 import 'dart:convert';
 
+import 'package:chamber_deputies/src/models/occupation.dart';
 import 'package:chamber_deputies/src/services/client.dart';
-import 'package:chamber_deputies/src/models/deputy_details.dart';
 
-class DeputyDetailsRepository {
+class OccupationsRepository {
   final HttpClient client;
   final int idDeputy;
 
-  DeputyDetailsRepository({
+  OccupationsRepository({
     required this.client,
     required this.idDeputy,
   });
 
-  Future<DeputyDetailsModel> getDeputyDetails() async {
+  Future<List<OccupationModel>> getOccupations() async {
     final response = await client.get(
-      url: 'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy',
+      url:
+          'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/ocupacoes',
     );
 
     if (response.statusCode == 200) {
+      final List<OccupationModel> expenses = [];
       final bodyDecode = jsonDecode(response.body);
-      return DeputyDetailsModel.fromMap(bodyDecode['dados']);
+
+      bodyDecode['dados'].map((expense) {
+        expenses.add(OccupationModel.fromMap(expense));
+      }).toList();
+
+      return expenses;
     } else if (response.statusCode == 404) {
       throw Exception('Url informada não encontrada!');
     } else {
