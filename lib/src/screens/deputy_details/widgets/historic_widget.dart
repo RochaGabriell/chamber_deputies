@@ -1,19 +1,19 @@
 import 'package:chamber_deputies/src/models/deputies.dart';
 import 'package:flutter/material.dart';
 
-class HistoryWidget extends StatefulWidget {
+class HistoricWidget extends StatefulWidget {
   final DeputiesModels deputy;
 
-  const HistoryWidget({
+  const HistoricWidget({
     super.key,
     required this.deputy,
   });
 
   @override
-  State<HistoryWidget> createState() => _HistoryWidgetState();
+  State<HistoricWidget> createState() => _HistoricWidgetState();
 }
 
-class _HistoryWidgetState extends State<HistoryWidget> {
+class _HistoricWidgetState extends State<HistoricWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(

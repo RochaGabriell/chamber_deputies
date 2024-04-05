@@ -10,7 +10,7 @@ import 'package:chamber_deputies/src/stores/deputy_details.dart';
 import 'package:chamber_deputies/src/screens/deputy_details/widgets/information_widget.dart';
 import 'package:chamber_deputies/src/screens/deputy_details/widgets/expenses_widget.dart';
 import 'package:chamber_deputies/src/screens/deputy_details/widgets/occupations_widget.dart';
-import 'package:chamber_deputies/src/screens/deputy_details/widgets/history_widget.dart';
+import 'package:chamber_deputies/src/screens/deputy_details/widgets/historic_widget.dart';
 
 class DeputyDetails extends StatefulWidget {
   final DeputiesModels deputy;
@@ -113,7 +113,7 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                     const SizedBox(height: 10),
                     OccupationsWidget(deputy: widget.deputy),
                     const SizedBox(height: 10),
-                    HistoryWidget(deputy: widget.deputy),
+                    HistoricWidget(deputy: widget.deputy),
                   ],
                 ),
               ),

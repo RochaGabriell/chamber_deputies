@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Commission extends StatefulWidget {
-  const Commission({
+class Fronts extends StatefulWidget {
+  const Fronts({
     super.key,
   });
 
   @override
-  State<Commission> createState() => _CommissionState();
+  State<Fronts> createState() => _FrontsState();
 }
 
-class _CommissionState extends State<Commission> {
+class _FrontsState extends State<Fronts> {
   static const String titleAppBar = 'Comissões';
 
   @override

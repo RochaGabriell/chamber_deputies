@@ -5,13 +5,14 @@ import 'package:chamber_deputies/src/screens/about.dart';
 import 'package:chamber_deputies/src/screens/deputy_details/deputy_details.dart';
 import 'package:chamber_deputies/src/screens/home.dart';
 import 'package:chamber_deputies/src/screens/deputies.dart';
-import 'package:chamber_deputies/src/screens/commission.dart';
+import 'package:chamber_deputies/src/screens/fronts.dart';
 
 Map<String, String> routesMap = {
   'Home': '/',
   'Deputies': '/deputies',
   'DeputyDetails': '/deputy-details',
-  'Comissions': '/comissions',
+  'Fronts': '/fronts',
+  'FrontsDetails': '/fronts-details',
   'About': '/about',
 };
 
@@ -35,7 +36,7 @@ Route browserRouter(RouteSettings settings) {
 
     case '/comissions':
       return MaterialPageRoute(
-        builder: (context) => const Commission(),
+        builder: (context) => const Fronts(),
       );
 
     case '/about':
