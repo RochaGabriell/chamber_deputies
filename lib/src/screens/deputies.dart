@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chamber_deputies/src/routes/router.dart';
@@ -17,6 +18,12 @@ class Deputies extends StatefulWidget {
 
 class _DeputiesState extends State<Deputies> {
   static const String titleAppBar = 'Deputados';
+  final Map<String, String> options = {
+    'siglaPartido': 'Partido',
+    'siglaUf': 'UF',
+    'nome': 'Nome',
+  };
+  String _selectedOption = '';
   String search = '';
 
   final DeputiesStore store = DeputiesStore(
@@ -39,16 +46,29 @@ class _DeputiesState extends State<Deputies> {
     );
   }
 
-  List<DeputiesModels> filterDeputies(List<DeputiesModels> deputies) {
-    if (search.isEmpty) {
-      return deputies;
-    }
+  void _setSelectedOption(String value) {
+    setState(() {
+      _selectedOption = value;
+    });
+  }
 
-    return deputies.where((deputy) {
-      return deputy.name.toLowerCase().contains(search.toLowerCase()) ||
-          deputy.uf.toLowerCase().contains(search.toLowerCase()) ||
-          deputy.party.toLowerCase().contains(search.toLowerCase());
-    }).toList();
+  List<DeputiesModels> filterDeputies(List<DeputiesModels> deputies) {
+    switch (_selectedOption) {
+      case 'siglaPartido':
+        return deputies.where((deputy) {
+          return deputy.party.toLowerCase().contains(search.toLowerCase());
+        }).toList();
+      case 'siglaUf':
+        return deputies.where((deputy) {
+          return deputy.uf.toLowerCase().contains(search.toLowerCase());
+        }).toList();
+      case 'nome':
+        return deputies.where((deputy) {
+          return deputy.name.toLowerCase().contains(search.toLowerCase());
+        }).toList();
+      default:
+        return deputies;
+    }
   }
 
   @override
@@ -100,21 +120,89 @@ class _DeputiesState extends State<Deputies> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Pesquisar (Nome, UF, Partido)',
-                      prefixIcon: Icon(Icons.search),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide:
-                            BorderSide(color: Color.fromRGBO(86, 185, 82, 1)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (_selectedOption.isNotEmpty)
+                        SizedBox(
+                          width: _selectedOption.isEmpty
+                              ? MediaQuery.of(context).size.width * 0.1
+                              : MediaQuery.of(context).size.width * 0.7,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText:
+                                  'Pesquisar por ${options[_selectedOption]}',
+                              prefixIcon: const Icon(Icons.search),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(86, 185, 82, 1)),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                search = value;
+                              });
+                            },
+                          ),
+                        ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: _selectedOption.isEmpty
+                            ? MediaQuery.of(context).size.width * 0.8
+                            : MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(86, 185, 82, 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (!_selectedOption.isNotEmpty)
+                                const Text(
+                                  'Filtrar por:',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              if (!_selectedOption.isNotEmpty) const Spacer(),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.filter_list,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (context) {
+                                      return CupertinoActionSheet(
+                                        title: const Text('Filtrar por:'),
+                                        actions: options.entries
+                                            .map(
+                                              (entry) =>
+                                                  CupertinoActionSheetAction(
+                                                onPressed: () {
+                                                  _setSelectedOption(entry.key);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(entry.value),
+                                              ),
+                                            )
+                                            .toList(),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        search = value;
-                      });
-                    },
+                    ],
                   ),
                 ),
                 Expanded(
@@ -157,11 +245,11 @@ class _DeputiesState extends State<Deputies> {
                                 deputy.name,
                                 style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Row(
+                              Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
@@ -177,12 +265,11 @@ class _DeputiesState extends State<Deputies> {
                                         deputy.uf,
                                         style: const TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -196,7 +283,7 @@ class _DeputiesState extends State<Deputies> {
                                         deputy.party,
                                         style: const TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ],

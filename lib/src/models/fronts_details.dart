@@ -1,3 +1,5 @@
+import 'package:chamber_deputies/src/models/deputies.dart';
+
 class FrontsDetailsModels {
   final int id;
   final int idLegislature;
@@ -10,7 +12,7 @@ class FrontsDetailsModels {
   final String websiteUrl;
   final String email;
   final String phoneNumber;
-  final Coordinator coordinator;
+  final DeputiesModels coordinator;
 
   FrontsDetailsModels({
     required this.id,
@@ -40,45 +42,7 @@ class FrontsDetailsModels {
       websiteUrl: map['urlWebsite'] ?? '',
       email: map['email'] ?? '',
       phoneNumber: map['telefone'] ?? '',
-      coordinator: Coordinator.fromMap(map['coordenador'] ?? {}),
-    );
-  }
-}
-
-class Coordinator {
-  final int id;
-  final int idLegislature;
-  final String name;
-  final String partyAbbreviation;
-  final String uf;
-  final String uri;
-  final String partyUri;
-  final String photoUrl;
-  final String email;
-
-  Coordinator({
-    required this.id,
-    required this.idLegislature,
-    required this.name,
-    required this.partyAbbreviation,
-    required this.uf,
-    required this.uri,
-    required this.partyUri,
-    required this.photoUrl,
-    required this.email,
-  });
-
-  factory Coordinator.fromMap(Map<String, dynamic> map) {
-    return Coordinator(
-      id: map['id'] ?? 0,
-      idLegislature: map['idLegislatura'] ?? 0,
-      name: map['nome'] ?? '',
-      partyAbbreviation: map['siglaPartido'] ?? '',
-      uf: map['siglaUf'] ?? '',
-      uri: map['uri'] ?? '',
-      partyUri: map['uriPartido'] ?? '',
-      photoUrl: map['urlFoto'] ?? '',
-      email: map['email'] ?? '',
+      coordinator: DeputiesModels.fromMap(map['coordenador'] ?? {}),
     );
   }
 }
