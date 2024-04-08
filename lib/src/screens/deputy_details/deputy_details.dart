@@ -1,3 +1,4 @@
+import 'package:chamber_deputies/src/screens/deputy_details/widgets/cabinet_widget.dart';
 import 'package:flutter/material.dart';
 
 // Services
@@ -113,6 +114,11 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                       height: 10,
                     ),
                     InformationDeputyWidget(
+                      deputy: widget.deputy,
+                      deputyDetails: deputyDetails,
+                    ),
+                    const SizedBox(height: 10),
+                    CabinetWidget(
                       deputy: widget.deputy,
                       deputyDetails: deputyDetails,
                     ),

@@ -214,38 +214,34 @@ class _OccupationsWidgetState extends State<OccupationsWidget> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Ano de início',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    occupation.startYear,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  const Text(
-                                    'Ano de fim',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    occupation.endYear,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                'Ano de início',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                occupation.startYear,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              const Text(
+                                'Ano de fim',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                occupation.endYear,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
                             ],
                           ),

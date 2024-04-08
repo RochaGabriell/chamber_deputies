@@ -97,6 +97,7 @@ class _InformationFrontWidgetState extends State<InformationFrontWidget> {
             child: Column(
               children: [
                 Container(
+                  width: double.infinity,
                   margin: const EdgeInsets.all(5),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -183,6 +184,7 @@ class _InformationFrontWidgetState extends State<InformationFrontWidget> {
                   ),
                 ),
                 Container(
+                  width: double.infinity,
                   margin: const EdgeInsets.all(5),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(

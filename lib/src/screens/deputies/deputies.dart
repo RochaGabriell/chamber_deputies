@@ -57,20 +57,41 @@ class _DeputiesState extends State<Deputies> {
     });
   }
 
-  void filterDeputies() {
+  // void filterDeputies() {
+  //   switch (_selectedOption) {
+  //     case 'siglaPartido':
+  //       store.filterDeputies(null, null, search).then((value) {
+  //         setState(() {});
+  //       });
+  //     case 'siglaUf':
+  //       store.filterDeputies(null, search, null).then((value) {
+  //         setState(() {});
+  //       });
+  //     case 'nome':
+  //       store.filterDeputies(search, null, null).then((value) {
+  //         setState(() {});
+  //       });
+  //   }
+  // }
+
+  List<DeputiesModels> filterDeputies(List<DeputiesModels> deputies) {
     switch (_selectedOption) {
       case 'siglaPartido':
-        store.filterDeputies(null, null, search).then((value) {
-          setState(() {});
-        });
+        return deputies.where((deputy) {
+          return deputy.party.toLowerCase().contains(search.toLowerCase());
+        }).toList();
       case 'siglaUf':
-        store.filterDeputies(null, search, null).then((value) {
-          setState(() {});
-        });
+        return deputies.where((deputy) {
+          return deputy.uf.toLowerCase().contains(
+                search.toLowerCase(),
+              );
+        }).toList();
       case 'nome':
-        store.filterDeputies(search, null, null).then((value) {
-          setState(() {});
-        });
+        return deputies.where((deputy) {
+          return deputy.name.toLowerCase().contains(search.toLowerCase());
+        }).toList();
+      default:
+        return deputies;
     }
   }
 
@@ -105,7 +126,7 @@ class _DeputiesState extends State<Deputies> {
                         SizedBox(
                           width: _selectedOption.isEmpty
                               ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.width * 0.5,
+                              : MediaQuery.of(context).size.width * 0.7,
                           child: TextField(
                             decoration: InputDecoration(
                               hintText:
@@ -124,23 +145,23 @@ class _DeputiesState extends State<Deputies> {
                             },
                           ),
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Color.fromRGBO(
-                                  86, 185, 82, 1), // Cor de fundo do botão
-                              shape: BoxShape.circle, // Forma do botão
-                            ),
-                            child: IconButton(
-                              onPressed: () => filterDeputies(),
-                              icon: const Icon(
-                                Icons.search,
-                                color: Colors.white, // Cor do ícone
-                              ),
-                            ),
-                          ),
-                        )
+                        // const SizedBox(width: 10),
+                        // Expanded(
+                        //   child: Container(
+                        //     decoration: const BoxDecoration(
+                        //       color: Color.fromRGBO(
+                        //           86, 185, 82, 1), // Cor de fundo do botão
+                        //       shape: BoxShape.circle, // Forma do botão
+                        //     ),
+                        //     child: IconButton(
+                        //       onPressed: () => filterDeputies(),
+                        //       icon: const Icon(
+                        //         Icons.search,
+                        //         color: Colors.white, // Cor do ícone
+                        //       ),
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -248,7 +269,7 @@ class _DeputiesState extends State<Deputies> {
                   );
                 }
 
-                final deputies = store.value.value;
+                final deputies = filterDeputies(store.value.value);
 
                 return ListDeputiesWidget(
                   deputies: deputies,

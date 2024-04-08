@@ -19,12 +19,21 @@ class ListDeputiesWidget extends StatefulWidget {
 class _ListDeputiesWidgetState extends State<ListDeputiesWidget> {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final crossAxisCount = screenSize.width < 380
+        ? 1
+        : screenSize.width < 640
+            ? 2
+            : screenSize.width < 800
+                ? 3
+                : 4;
+
     return GridView.builder(
       padding: const EdgeInsets.all(10),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 25,
       ),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,

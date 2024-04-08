@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:chamber_deputies/src/services/client.dart';
 import 'package:chamber_deputies/src/models/deputies.dart';
-import 'package:http/http.dart';
 
 class DeputiesRepository {
   final HttpClient client;
