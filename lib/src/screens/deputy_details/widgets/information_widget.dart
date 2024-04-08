@@ -5,21 +5,22 @@ import 'package:chamber_deputies/src/models/deputies.dart';
 // Models for Deputy Details
 import 'package:chamber_deputies/src/models/deputy_details.dart';
 
-class InformationWidget extends StatefulWidget {
+class InformationDeputyWidget extends StatefulWidget {
   final DeputiesModels deputy;
   final DeputyDetailsModel deputyDetails;
 
-  const InformationWidget({
+  const InformationDeputyWidget({
     super.key,
     required this.deputy,
     required this.deputyDetails,
   });
 
   @override
-  State<InformationWidget> createState() => _InformationWidgetState();
+  State<InformationDeputyWidget> createState() =>
+      _InformationDeputyWidgetState();
 }
 
-class _InformationWidgetState extends State<InformationWidget> {
+class _InformationDeputyWidgetState extends State<InformationDeputyWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +36,7 @@ class _InformationWidgetState extends State<InformationWidget> {
         ],
       ),
       child: SizedBox(
-        height: 280,
+        height: 360,
         child: PageView(
           scrollDirection: Axis.horizontal,
           children: [
@@ -148,31 +149,34 @@ class _InformationWidgetState extends State<InformationWidget> {
                             ],
                           ),
                         ),
-                        Flexible(
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: const EdgeInsets.only(right: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Situação:',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    widget.deputyDetails.situation ?? '',
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                'Situação:',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              Row(
+                              const SizedBox(width: 5),
+                              Text(
+                                widget.deputyDetails.situation ?? '',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
                                     'Condição Eleitoral:',
@@ -182,43 +186,33 @@ class _InformationWidgetState extends State<InformationWidget> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(width: 5),
-                                  Flexible(
-                                    child: Text(
-                                      widget.deputyDetails.condition ?? '',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                      ),
+                                  Text(
+                                    widget.deputyDetails.condition ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Escolaridade:',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Flexible(
-                                    child: Text(
-                                      widget.deputyDetails.education ?? '',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                'Escolaridade:',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                widget.deputyDetails.education ?? '',
+                                maxLines: 1,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
                               ),
                               Row(
                                 children: [
@@ -260,10 +254,11 @@ class _InformationWidgetState extends State<InformationWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    'Data de Nasc.:',
+                                    'Data de Nascimento: ',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
@@ -271,13 +266,11 @@ class _InformationWidgetState extends State<InformationWidget> {
                                     ),
                                   ),
                                   const SizedBox(width: 5),
-                                  Flexible(
-                                    child: Text(
-                                      widget.deputyDetails.birthDate ?? '',
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                      ),
+                                  Text(
+                                    widget.deputyDetails.birthDate ?? '',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ],
@@ -368,32 +361,60 @@ class _InformationWidgetState extends State<InformationWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (var cabinet
+                        for (final cabinet
                             in widget.deputyDetails.cabinet!.entries)
-                          Row(
-                            children: [
-                              Text(
-                                '${cabinet.key[0].toUpperCase() + cabinet.key.substring(1)}: ',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          cabinet.key == 'email'
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${cabinet.key[0].toUpperCase() + cabinet.key.substring(1)}: ',
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      cabinet.value ?? '-',
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  children: [
+                                    Text(
+                                      '${cabinet.key[0].toUpperCase() + cabinet.key.substring(1)}: ',
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      cabinet.value ?? '-',
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                cabinet.value ?? '-',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          ),
                       ],
                     ),
                   ),

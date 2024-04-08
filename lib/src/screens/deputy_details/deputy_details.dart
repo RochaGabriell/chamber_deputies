@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 // Services
 import 'package:chamber_deputies/src/services/client.dart';
-// Models, Repositories and Stores for Deputies
+// Models for Deputies
 import 'package:chamber_deputies/src/models/deputies.dart';
+// Repositories and Stores for Deputies Details
 import 'package:chamber_deputies/src/repositories/deputy_detail.dart';
 import 'package:chamber_deputies/src/stores/deputy_details.dart';
 // Widgets
@@ -75,8 +76,15 @@ class _DeputyDetailsState extends State<DeputyDetails> {
             }
 
             if (storeDeputyDetails.error.value.isNotEmpty) {
-              return Center(
-                child: Text(storeDeputyDetails.error.value),
+              return const Center(
+                child: Text(
+                  'Erro: Deputado não encontrado!',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               );
             }
 
@@ -104,7 +112,7 @@ class _DeputyDetailsState extends State<DeputyDetails> {
                     const SizedBox(
                       height: 10,
                     ),
-                    InformationWidget(
+                    InformationDeputyWidget(
                       deputy: widget.deputy,
                       deputyDetails: deputyDetails,
                     ),

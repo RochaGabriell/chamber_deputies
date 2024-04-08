@@ -1,32 +1,31 @@
 import 'dart:convert';
 
 import 'package:chamber_deputies/src/services/client.dart';
-import 'package:chamber_deputies/src/models/historic.dart';
+import 'package:chamber_deputies/src/models/members_front.dart';
 
-class HistoricRepository {
+class MembersRepository {
   final HttpClient client;
-  final int idDeputy;
+  final int idFront;
 
-  HistoricRepository({
+  MembersRepository({
     required this.client,
-    required this.idDeputy,
+    required this.idFront,
   });
 
-  Future<List<HistoricModels>> getHistoric() async {
+  Future<List<MembersFrontModels>> getMembers() async {
     final response = await client.get(
-      url:
-          'https://dadosabertos.camara.leg.br/api/v2/deputados/$idDeputy/historico',
+      url: 'https://dadosabertos.camara.leg.br/api/v2/frentes/$idFront/membros',
     );
 
     if (response.statusCode == 200) {
-      final List<HistoricModels> historic = [];
+      final List<MembersFrontModels> members = [];
       final bodyDecode = jsonDecode(response.body);
 
-      bodyDecode['dados'].map((situation) {
-        historic.add(HistoricModels.fromMap(situation));
+      bodyDecode['dados'].map((member) {
+        members.add(MembersFrontModels.fromMap(member));
       }).toList();
 
-      return historic;
+      return members;
     } else if (response.statusCode == 404) {
       throw Exception('Url informada não encontrada!');
     } else {

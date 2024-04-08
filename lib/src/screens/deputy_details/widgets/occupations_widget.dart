@@ -1,10 +1,12 @@
-import 'package:chamber_deputies/src/repositories/occupation.dart';
-import 'package:chamber_deputies/src/services/client.dart';
-import 'package:chamber_deputies/src/stores/occupation.dart';
 import 'package:flutter/material.dart';
 
+// Services
+import 'package:chamber_deputies/src/services/client.dart';
 // Models for Deputies
 import 'package:chamber_deputies/src/models/deputies.dart';
+// Stores and Repositories for Occupations
+import 'package:chamber_deputies/src/stores/occupation.dart';
+import 'package:chamber_deputies/src/repositories/occupation.dart';
 
 class OccupationsWidget extends StatefulWidget {
   final DeputiesModels deputy;

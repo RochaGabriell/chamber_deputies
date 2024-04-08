@@ -27,4 +27,30 @@ class DeputiesStore {
       isLoading.value = false;
     }
   }
+
+  Future getDeputyById(int id) async {
+    isLoading.value = true;
+
+    try {
+      final result = await repository.getDeputyById(id);
+      value.value = result;
+    } on Exception catch (e) {
+      error.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future filterDeputies(String? name, String? uf, String? party) async {
+    isLoading.value = true;
+
+    try {
+      final result = await repository.filterDeputies(name, uf, party);
+      value.value = result;
+    } on Exception catch (e) {
+      error.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

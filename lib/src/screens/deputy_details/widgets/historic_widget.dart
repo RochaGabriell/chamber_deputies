@@ -22,7 +22,7 @@ class HistoricWidget extends StatefulWidget {
 
 class _HistoricWidgetState extends State<HistoricWidget> {
   late HistoricStore storeHistoric;
-  bool _isVisible = true;
+  bool _isVisible = false;
 
   @override
   void initState() {
@@ -148,7 +148,7 @@ class _HistoricWidgetState extends State<HistoricWidget> {
 
                       return Container(
                         width: 350,
-                        margin: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.black12,

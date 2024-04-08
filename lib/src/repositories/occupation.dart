@@ -19,14 +19,14 @@ class OccupationsRepository {
     );
 
     if (response.statusCode == 200) {
-      final List<OccupationModel> expenses = [];
+      final List<OccupationModel> occupations = [];
       final bodyDecode = jsonDecode(response.body);
 
-      bodyDecode['dados'].map((expense) {
-        expenses.add(OccupationModel.fromMap(expense));
+      bodyDecode['dados'].map((occupation) {
+        occupations.add(OccupationModel.fromMap(occupation));
       }).toList();
 
-      return expenses;
+      return occupations;
     } else if (response.statusCode == 404) {
       throw Exception('Url informada não encontrada!');
     } else {

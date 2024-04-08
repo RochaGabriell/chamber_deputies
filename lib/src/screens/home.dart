@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
                   ),
                   child: GestureDetector(
                     onTap: () =>
-                        Navigator.pushNamed(context, routesMap['Comissions']!),
+                        Navigator.pushNamed(context, routesMap['Fronts']!),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -1,4 +1,4 @@
-class MembersFronts {
+class MembersFrontModels {
   final int id;
   final String uri;
   final String name;
@@ -11,9 +11,8 @@ class MembersFronts {
   final String startDate;
   final String endDate;
   final String title;
-  final String partyAbbreviation;
 
-  MembersFronts({
+  MembersFrontModels({
     required this.id,
     required this.uri,
     required this.name,
@@ -26,11 +25,10 @@ class MembersFronts {
     required this.startDate,
     required this.endDate,
     required this.title,
-    required this.partyAbbreviation,
   });
 
-  factory MembersFronts.fromMap(Map<String, dynamic> map) {
-    return MembersFronts(
+  factory MembersFrontModels.fromMap(Map<String, dynamic> map) {
+    return MembersFrontModels(
       id: map['id'] ?? 0,
       uri: map['uri'] ?? '',
       name: map['nome'] ?? '',
@@ -44,7 +42,6 @@ class MembersFronts {
       startDate: map['dataInicio'] ?? '',
       endDate: map['dataFim'] ?? '',
       title: map['titulo'] ?? '',
-      partyAbbreviation: map['siglaPartido'] ?? '',
     );
   }
 }
