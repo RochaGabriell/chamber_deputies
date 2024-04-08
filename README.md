@@ -1,6 +1,6 @@
 # Chamber of Deputies
 
-[<img src="https://github.com/RochaGabriell/chamber_deputies/raw/main/.github/Screenshot_chamber_deputies.jpg" width="50%">](https://www.youtube.com/embed/OBRXsNSikBs?si=a5_AosnrVG58iPYM "Now in Android: 55")
+[<img src="https://github.com/RochaGabriell/chamber_deputies/raw/main/.github/Screenshot_chamber_deputies.jpg" width="50%">](https://youtu.be/bh5vabDTs1c "App Flutter")
 
 O Chamber of Deputies é um aplicativo móvel desenvolvido para fornecer aos usuários informações detalhadas sobre os deputados da Câmara dos Deputados do Brasil. Este aplicativo consome a API de Dados Abertos da Câmara dos Deputados, permitindo aos usuários acessarem informações sobre os deputados, suas atividades, comissões e gastos mensais.
 
